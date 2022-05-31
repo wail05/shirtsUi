@@ -25,8 +25,7 @@ export function CardComponentList(props) {
 
     useEffect(() => {
         fetchShirts();
-
-    }, [])
+    }, [post.length])
 
     const handleSetPost = (posts) => {
         // console.log("post from CardComponentList: ", post);
@@ -73,7 +72,7 @@ export function CardComponentList(props) {
     }
     const handleCancel = () => {
         setCart([])
-        fetchShirts()
+        setPost([]);
     }
 
 

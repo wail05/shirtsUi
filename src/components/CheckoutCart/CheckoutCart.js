@@ -2,38 +2,6 @@ import React, { useEffect } from "react";
 import { Form } from "antd";
 
 export function CheckoutCart({ cart }) {
-
-
-    console.log(cart, '<===== cart from single')
-    // temporary dummy data for testing
-    // const toBePurchased = [
-    //     {
-    //         id: 1,
-    //         name: "red",
-    //         quantity: 0
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "red",
-    //         quantity: 10
-    //     },
-    //     {
-    //         id: 3,
-    //         name: "red",
-    //         quantity: 4
-    //     },
-    //     {
-    //         id: 4,
-    //         name: "red",
-    //         quantity: 0
-    //     }
-    // ]
-
-    // useEffect(() => {
-    //     //test
-    //     // console.log("toBePurchased from the checkoutcart", toBePurchased)
-    // }, [toBePurchased])
-
     return (
         <div
             style={{
