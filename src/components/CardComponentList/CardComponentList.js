@@ -1,12 +1,12 @@
 import "antd/dist/antd.css";
 import React, { useEffect } from "react";
 import axios from "axios";
-import { Col, Button } from "antd";
+import { Col, Button, notification } from "antd";
 import { CardComponent } from "../CardComponent/CardComponent";
 import { CheckoutCart } from "../CheckoutCart/CheckoutCart";
 
 
-export function CardComponentList(props) {
+export function CardComponentList() {
     const [post, setPost] = React.useState([]);
     const [cart, setCart] = React.useState([])
 
@@ -21,6 +21,26 @@ export function CardComponentList(props) {
                 console.log(err)
             })
     }
+
+    const handleSubmit = async (posts) => {
+        if (posts.length === 0) {
+            fetchShirts()
+            return notification.error({
+                message: "Error",
+                description: "Your Cart is empty!"
+            })
+        }
+        axios.put("http://localhost:8080/component/updateShirtAvailability", posts)
+            .then(() => fetchShirts())
+            .catch(error => {
+                notification.error({
+                    message: "error",
+                    description: `${error.response.data.message}`
+                });
+                fetchShirts();
+            })
+    }
+
 
 
     useEffect(() => {
@@ -68,13 +88,18 @@ export function CardComponentList(props) {
 
     const handleCheckout = (data) => {
         setCart([])
-        props.handleSubmit(data)
+        handleSubmit(data)
     }
+
     const handleCancel = () => {
         setCart([])
         setPost([]);
     }
-
+    const handleUpdateShirt = (idx, newShirtState) => {
+        const newShirt = [...post];
+        newShirt[idx] = newShirtState;
+        setPost(newShirt)
+    }
 
 
     return (
@@ -88,9 +113,11 @@ export function CardComponentList(props) {
         >
             <Col span={18} style={{ display: "flex" }}>
                 {
-                    post && post.map((component, i) => {
+                    post && post.map((shirt, i) => {
                         return <CardComponent
-                            component={component}
+                            handleUpdateShirt={handleUpdateShirt}
+                            shirt={shirt}
+                            index={i}
                             key={i}
                             handleSetPost={handleSetPost}
                             post={post}
@@ -99,14 +126,15 @@ export function CardComponentList(props) {
                     })
                 }
             </Col>
-            <Col style={{ marginRight: "5px" }} span={4}>
+            <Col style={{ marginRight: "-5px" }} span={4}>
                 <div style={{ position: "fixed" }}>
                     <CheckoutCart /*data={toBePurchased}*/ cart={cart} />
                     <div style={{ display: "flow-root", position: "relative" }}>
                         <Button
                             type="primary"
                             style={{ borderRadius: "8px", width: "100%" }}
-                            onClick={() => handleCheckout(post)}
+                            onClick={() => handleCheckout(cart)}
+
                         >
                             Check Out
                         </Button>
