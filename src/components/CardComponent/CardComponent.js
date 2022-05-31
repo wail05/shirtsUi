@@ -25,19 +25,20 @@ export function CardComponent(props) {
     }
 
     const toBeMapped = {
+        name,
         available: availableShirts,
         quantity: shirtsToBuy,
         id
     }
 
-    console.log("to be mapped : ", toBeMapped);
+    // console.log("to be mapped : ", toBeMapped);
 
     const updateCart = (obj) => {
         const newArr = toBePurchased?.map(ele => {
             if (ele.id === obj.id) {
-                console.log("before: ", ele.quantity);
+                // console.log("before: ", ele.quantity);
                 ele.quantity = obj.quantity;
-                console.log("after: ", ele.quantity)
+                // console.log("after: ", ele.quantity)
             }
         })
         return newArr;
@@ -53,7 +54,7 @@ export function CardComponent(props) {
     }
 
     updateNewPost(toBeMapped);
-    updateCart(toBeMapped)
+    // updateCart(toBeMapped)
     props.handleSetPost(newPost);
 
     return (
@@ -70,7 +71,7 @@ export function CardComponent(props) {
             {props.children}
             <Meta title={name} description={description} />
             {availableShirts !== 0 ? <h1>Available {availableShirts}</h1> : <h1 style={{ color: "red" }}>Sold Out</h1>}
-            <Button disabled={availableShirts === 0} onClick={() => addToCart()}>Add to cart</Button>
+            <Button disabled={availableShirts === 0} onClick={() => { props.updateCart(toBeMapped); addToCart() }}>Add to cart</Button>
         </Card>
     )
 }

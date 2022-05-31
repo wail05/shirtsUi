@@ -1,37 +1,38 @@
 import React, { useEffect } from "react";
 import { Form } from "antd";
 
-export function CheckoutCart() {
+export function CheckoutCart({ cart }) {
 
 
+    console.log(cart, '<===== cart from single')
     // temporary dummy data for testing
-    const toBePurchased = [
-        {
-            id: 1,
-            name: "red",
-            quantity: 0
-        },
-        {
-            id: 2,
-            name: "red",
-            quantity: 10
-        },
-        {
-            id: 3,
-            name: "red",
-            quantity: 4
-        },
-        {
-            id: 4,
-            name: "red",
-            quantity: 0
-        }
-    ]
+    // const toBePurchased = [
+    //     {
+    //         id: 1,
+    //         name: "red",
+    //         quantity: 0
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "red",
+    //         quantity: 10
+    //     },
+    //     {
+    //         id: 3,
+    //         name: "red",
+    //         quantity: 4
+    //     },
+    //     {
+    //         id: 4,
+    //         name: "red",
+    //         quantity: 0
+    //     }
+    // ]
 
-    useEffect(() => {
-        //test
-        console.log("toBePurchased from the checkoutcart", toBePurchased)
-    }, [toBePurchased])
+    // useEffect(() => {
+    //     //test
+    //     // console.log("toBePurchased from the checkoutcart", toBePurchased)
+    // }, [toBePurchased])
 
     return (
         <div
@@ -56,7 +57,7 @@ export function CheckoutCart() {
                 }}
             >
                 <div style={{ width: "100%", display: "flex" }}>
-                    {toBePurchased.map(ele => {
+                    {cart?.map(ele => {
                         if (ele.quantity !== 0) {
                             return (
                                 <Form.Item
